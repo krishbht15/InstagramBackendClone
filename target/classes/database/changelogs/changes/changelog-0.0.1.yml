@@ -20,14 +20,6 @@ databaseChangeLog:
                     primaryKeyName: pk_gender
                     nullable: false
               - column:
-                  name: created_at
-                  type: TIMESTAMP
-                  constraints:
-                    nullable: false
-              - column:
-                  name: updated_at
-                  type: TIMESTAMP
-              - column:
                   name: ref_id
                   type: integer
               - column:
@@ -53,14 +45,7 @@ databaseChangeLog:
                     primaryKey: true
                     primaryKeyName: pk_profile_status
                     nullable: false
-              - column:
-                  name: created_at
-                  type: TIMESTAMP
-                  constraints:
-                    nullable: false
-              - column:
-                  name: updated_at
-                  type: TIMESTAMP
+
               - column:
                   name: ref_id
                   type: integer
@@ -164,14 +149,7 @@ databaseChangeLog:
                     primaryKey: true
                     primaryKeyName: pk_post_status
                     nullable: false
-              - column:
-                  name: created_at
-                  type: TIMESTAMP
-                  constraints:
-                    nullable: false
-              - column:
-                  name: updated_at
-                  type: TIMESTAMP
+
               - column:
                   name: ref_id
                   type: integer
@@ -304,6 +282,78 @@ databaseChangeLog:
                   constraints:
                     nullable: false
 
+  - changeSet:
+      id: 1586377044-1
+      author: krishbht15
+      changes:
+        - sql:
+            sql: create trigger ins_gender before insert on gender for each row set new.uuid = unhex(replace(uuid(), '-', ''))
+
+  - changeSet:
+      id: 1586377044-2
+      author: krishbht15
+      changes:
+        - sql:
+            sql: create trigger ins_posts_status before insert on posts_status for each row set new.uuid = unhex(replace(uuid(), '-', ''))
+
+  - changeSet:
+      id: 1586377044-3
+      author: krishbht15
+      changes:
+        - sql:
+            sql: create trigger ins_profile_status before insert on profile_status for each row set new.uuid = unhex(replace(uuid(), '-', ''))
+
+
+  - changeSet:
+      id: 1586377044-4
+      author: krishbht15
+      runOnChange: true
+      changes:
+        - loadUpdateData:
+            columns:
+              - column:
+                  name: name
+                  type: STRING
+              - column:
+                  name: ref_id
+                  type: NUMERIC
+            file: database/changelogs/data/gender.csv
+            primaryKey: uuid
+            tableName: gender
+
+  - changeSet:
+      id: 1586377044-5
+      author: krishbht15
+      runOnChange: true
+      changes:
+        - loadUpdateData:
+            columns:
+              - column:
+                  name: name
+                  type: STRING
+              - column:
+                  name: ref_id
+                  type: NUMERIC
+            file: database/changelogs/data/posts_status.csv
+            primaryKey: uuid
+            tableName: posts_status
+
+  - changeSet:
+      id: 1586377044-6
+      author: krishbht15
+      runOnChange: true
+      changes:
+        - loadUpdateData:
+            columns:
+              - column:
+                  name: name
+                  type: STRING
+              - column:
+                  name: ref_id
+                  type: NUMERIC
+            file: database/changelogs/data/profile_status.csv
+            primaryKey: uuid
+            tableName: profile_status
 
 
 
