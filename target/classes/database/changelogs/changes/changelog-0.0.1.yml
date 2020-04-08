@@ -1,6 +1,74 @@
 databaseChangeLog:
   - changeSet:
-      id: 1586351724
+      id: 1586284262899-6
+      author: krishbht15
+      preConditions:
+        - onFail: WARN
+        - not:
+            tableExists:
+              schemaName: instadb
+              tableName: gender
+      changes:
+        - createTable:
+            tableName: gender
+            columns:
+              - column:
+                  name: uuid
+                  type: binary(16)
+                  constraints:
+                    primaryKey: true
+                    primaryKeyName: pk_gender
+                    nullable: false
+              - column:
+                  name: created_at
+                  type: TIMESTAMP
+                  constraints:
+                    nullable: false
+              - column:
+                  name: updated_at
+                  type: TIMESTAMP
+              - column:
+                  name: ref_id
+                  type: integer
+              - column:
+                  name: name
+                  type: varchar(50)
+  - changeSet:
+      id: 1586284262899-4
+      author: krishbht15
+      preConditions:
+        - onFail: WARN
+        - not:
+            tableExists:
+              schemaName: instadb
+              tableName: profile_status
+      changes:
+        - createTable:
+            tableName: profile_status
+            columns:
+              - column:
+                  name: uuid
+                  type: binary(16)
+                  constraints:
+                    primaryKey: true
+                    primaryKeyName: pk_profile_status
+                    nullable: false
+              - column:
+                  name: created_at
+                  type: TIMESTAMP
+                  constraints:
+                    nullable: false
+              - column:
+                  name: updated_at
+                  type: TIMESTAMP
+              - column:
+                  name: ref_id
+                  type: integer
+              - column:
+                  name: name
+                  type: varchar(50)
+  - changeSet:
+      id: 1586351724-1
       author: krishbht15
       preConditions:
         - onFail: WARN
@@ -55,25 +123,112 @@ databaseChangeLog:
                   type: varchar(150)
                   constraints:
                     nullable: true
-
-              - column:
-                  name: gender
-                  type: varchar(10)
-                  constraints:
-                    nullable: true
-
               - column:
                   name: photo_url
                   type: varchar(100)
                   constraints:
                     nullable: true
                     unique: true
+              - column:
+                  name: gender
+                  type: binary(16)
+                  constraints:
+                    nullablel: false
+                    foreignKeyName: fk_gender_user
+                    references: gender(uuid)
 
-
+              - column:
+                  name: profile_status
+                  type: binary(16)
+                  constraints:
+                    nullablel: false
+                    foreignKeyName: fk_profile_status_user
+                    references: profile_status(uuid)
+  - changeSet:
+      id: 1586284262899-3
+      author: krishbht15
+      preConditions:
+        - onFail: WARN
+        - not:
+            tableExists:
+              schemaName: instadb
+              tableName: posts_status
+      changes:
+        - createTable:
+            tableName: posts_status
+            columns:
+              - column:
+                  name: uuid
+                  type: binary(16)
+                  constraints:
+                    primaryKey: true
+                    primaryKeyName: pk_post_status
+                    nullable: false
+              - column:
+                  name: created_at
+                  type: TIMESTAMP
+                  constraints:
+                    nullable: false
+              - column:
+                  name: updated_at
+                  type: TIMESTAMP
+              - column:
+                  name: ref_id
+                  type: integer
+              - column:
+                  name: name
+                  type: varchar(50)
 
 
   - changeSet:
-      id: 1586284262899
+      id: 1586351724-2
+      author: krishbht15
+      preConditions:
+        - onFail: WARN
+        - not:
+            tableExists:
+              schemaName: instadb
+              tableName: posts
+      changes:
+        - createTable:
+            tableName: posts
+            columns:
+              - column:
+                  name: uuid
+                  type: binary(16)
+                  constraints:
+                    primaryKey: true
+                    primaryKeyName: pk_posts
+                    nullable: false
+              - column:
+                  name: created_at
+                  type: TIMESTAMP
+                  constraints:
+                    nullable: false
+              - column:
+                  name: updated_at
+                  type: TIMESTAMP
+              - column:
+                  name: description
+                  type: varchar(2200)
+              - column:
+                  name: status
+                  type: binary(16)
+                  constraints:
+                    nullablel: false
+                    foreignKeyName: fk_status_post
+                    references: posts_status(uuid)
+              - column:
+                  name: user_id
+                  type: binary(16)
+                  constraints:
+                    nullablel: false
+                    foreignKeyName: fk_user_post
+                    references: users(uuid)
+
+
+  - changeSet:
+      id: 158628426289-1
       author: krishbht15
       preConditions:
         - onFail: WARN
@@ -105,5 +260,50 @@ databaseChangeLog:
                   type: binary(16)
                   constraints:
                     nullable: false
-                    foreignKeyName: fk_user_companies
+                    foreignKeyName: fk_user_likes
                     references: users(uuid)
+
+  - changeSet:
+      id: 1586284262899-2
+      author: krishbht15
+      preConditions:
+        - onFail: WARN
+        - not:
+            tableExists:
+              schemaName: instadb
+              tableName: comments
+      changes:
+        - createTable:
+            tableName: comments
+            columns:
+              - column:
+                  name: uuid
+                  type: binary(16)
+                  constraints:
+                    primaryKey: true
+                    primaryKeyName: pk_comments
+                    nullable: false
+              - column:
+                  name: created_at
+                  type: TIMESTAMP
+                  constraints:
+                    nullable: false
+              - column:
+                  name: updated_at
+                  type: TIMESTAMP
+              - column:
+                  name: user_id
+                  type: binary(16)
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_user_comments
+                    references: users(uuid)
+              - column:
+                  name: data
+                  type: varchar(2200)
+                  constraints:
+                    nullable: false
+
+
+
+
