@@ -118,7 +118,7 @@ databaseChangeLog:
                   name: gender
                   type: binary(16)
                   constraints:
-                    nullablel: false
+                    nullable: false
                     foreignKeyName: fk_gender_user
                     references: gender(uuid)
 
@@ -126,7 +126,7 @@ databaseChangeLog:
                   name: profile_status
                   type: binary(16)
                   constraints:
-                    nullablel: false
+                    nullable: false
                     foreignKeyName: fk_profile_status_user
                     references: profile_status(uuid)
   - changeSet:
@@ -193,14 +193,14 @@ databaseChangeLog:
                   name: status
                   type: binary(16)
                   constraints:
-                    nullablel: false
+                    nullable: false
                     foreignKeyName: fk_status_post
                     references: posts_status(uuid)
               - column:
                   name: user_id
                   type: binary(16)
                   constraints:
-                    nullablel: false
+                    nullable: false
                     foreignKeyName: fk_user_post
                     references: users(uuid)
 
@@ -240,6 +240,7 @@ databaseChangeLog:
                     nullable: false
                     foreignKeyName: fk_user_likes
                     references: users(uuid)
+
 
   - changeSet:
       id: 1586284262899-2
@@ -281,6 +282,7 @@ databaseChangeLog:
                   type: varchar(2200)
                   constraints:
                     nullable: false
+
 
   - changeSet:
       id: 1586377044-1
@@ -355,5 +357,32 @@ databaseChangeLog:
             primaryKey: uuid
             tableName: profile_status
 
+  - changeSet:
+      id: 1586381833-1
+      author: krishbht15
+      changes:
+        - addColumn:
+            columns:
+              - column:
+                  name: post
+                  type: binary(16)
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_post_like
+                    references: posts(uuid)
+            tableName: likes
 
-
+  - changeSet:
+      id: 1586381833-2
+      author: krishbht15
+      changes:
+        - addColumn:
+            columns:
+              - column:
+                  name: post
+                  type: binary(16)
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_post_comment
+                    references: posts(uuid)
+            tableName: comments

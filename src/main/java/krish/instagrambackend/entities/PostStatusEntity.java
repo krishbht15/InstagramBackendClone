@@ -5,9 +5,9 @@ import lombok.Data;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
-@Table(name = "gender")
+@Table(name = "posts_status")
 @Entity
 @Data
-public class GenderEntitiy extends BaseStaticEntity{
+public class PostStatusEntity extends BaseStaticEntity{
 
 }
