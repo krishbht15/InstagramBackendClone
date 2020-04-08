@@ -1,5 +1,78 @@
 databaseChangeLog:
   - changeSet:
+      id: 1586351724
+      author: krishbht15
+      preConditions:
+        - onFail: WARN
+        - not:
+            tableExists:
+              schemaName: instadb
+              tableName: users
+      changes:
+        - createTable:
+            tableName: users
+            columns:
+              - column:
+                  name: uuid
+                  type: binary(16)
+                  constraints:
+                    primaryKey: true
+                    primaryKeyName: pk_user
+                    nullable: false
+              - column:
+                  name: created_at
+                  type: TIMESTAMP
+                  constraints:
+                    nullable: false
+              - column:
+                  name: updated_at
+                  type: TIMESTAMP
+              - column:
+                  name: name
+                  type: varchar(100)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: email
+                  type: varchar(100)
+                  constraints:
+                    nullable: false
+                    unique: true
+              - column:
+                  name: password
+                  type: varchar(250)
+                  constraints:
+                    nullable: false
+                    unique: true
+              - column:
+                  name: user_name
+                  type: varchar(30)
+                  constraints:
+                    nullable: false
+                    unique: true
+              - column:
+                  name: bio
+                  type: varchar(150)
+                  constraints:
+                    nullable: true
+
+              - column:
+                  name: gender
+                  type: varchar(10)
+                  constraints:
+                    nullable: true
+
+              - column:
+                  name: photo_url
+                  type: varchar(100)
+                  constraints:
+                    nullable: true
+                    unique: true
+
+
+
+
+  - changeSet:
       id: 1586284262899
       author: krishbht15
       preConditions:
@@ -14,11 +87,11 @@ databaseChangeLog:
             columns:
               - column:
                   name: uuid
-                    type: binary(16)
-                    constraints:
-                      primaryKey: true
-                      primaryKeyName: pk_like
-                      nullable: false
+                  type: binary(16)
+                  constraints:
+                    primaryKey: true
+                    primaryKeyName: pk_like
+                    nullable: false
               - column:
                   name: created_at
                   type: TIMESTAMP
@@ -27,3 +100,10 @@ databaseChangeLog:
               - column:
                   name: updated_at
                   type: TIMESTAMP
+              - column:
+                  name: user_id
+                  type: binary(16)
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_user_companies
+                    references: users(uuid)
