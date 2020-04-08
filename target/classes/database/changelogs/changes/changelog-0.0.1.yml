@@ -1,0 +1,29 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1586284262899
+      author: krishbht15
+      preConditions:
+        - onFail: WARN
+        - not:
+            tableExists:
+              schemaName: instadb
+              tableName: likes
+      changes:
+        - createTable:
+            tableName: likes
+            columns:
+              - column:
+                  name: uuid
+                    type: binary(16)
+                    constraints:
+                      primaryKey: true
+                      primaryKeyName: pk_like
+                      nullable: false
+              - column:
+                  name: created_at
+                  type: TIMESTAMP
+                  constraints:
+                    nullable: false
+              - column:
+                  name: updated_at
+                  type: TIMESTAMP
