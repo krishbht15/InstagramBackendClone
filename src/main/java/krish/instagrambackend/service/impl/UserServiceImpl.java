@@ -4,6 +4,7 @@ import krish.instagrambackend.dto.RegisterUserDto;
 import krish.instagrambackend.entities.UserEntity;
 import krish.instagrambackend.repository.UserRepository;
 import krish.instagrambackend.service.UserService;
+import krish.instagrambackend.util.AesPassword;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -26,7 +27,7 @@ public class UserServiceImpl implements UserService {
         if (isEmailAvailable(registerUserDto.getEmail()) && isUserNameAvailable(registerUserDto.getUserName())) {
             userEntity.setEmail(registerUserDto.getEmail());
             userEntity.setName(registerUserDto.getName());
-            userEntity.setPassword(registerUserDto.getPassword());
+            userEntity.setPassword(AesPassword.encrypt(registerUserDto.getPassword()));
             userEntity.setUserName(registerUserDto.getUserName());
             try {
                 userRepository.save(userEntity);
