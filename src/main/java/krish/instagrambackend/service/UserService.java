@@ -1,5 +1,6 @@
 package krish.instagrambackend.service;
 
+import krish.instagrambackend.dto.LoginUserRequestDto;
 import krish.instagrambackend.dto.RegisterUserDto;
 import krish.instagrambackend.entities.UserEntity;
 
@@ -10,4 +11,5 @@ public interface UserService {
     boolean isUserNameAvailable(String  username);
     boolean isEmailAvailable(String email);
     List<UserEntity> fetchAllUsers();
+    boolean loginUser(LoginUserRequestDto loginUserRequestDto);
 }

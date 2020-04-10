@@ -1,5 +1,6 @@
 package krish.instagrambackend.controller;
 
+import krish.instagrambackend.dto.LoginUserRequestDto;
 import krish.instagrambackend.dto.RegisterUserDto;
 import krish.instagrambackend.entities.UserEntity;
 import krish.instagrambackend.service.UserService;
@@ -18,12 +19,15 @@ public class UserController {
     UserService userService;
 
     @PostMapping("/register")
-    private ResponseEntity<String> registerUser(@RequestBody RegisterUserDto registerUserDto) {
+    private ResponseEntity<String> registerUser(@RequestBody RegisterUserDto registerUserDto) throws Exception {
+
         UserEntity userEntity = userService.saveUser(registerUserDto);
         if (userEntity != null) {
-            return new ResponseEntity<>(userEntity.getUuid().toString(), HttpStatus.CREATED);
+            return new ResponseEntity<>(userEntity.getUuid().toString(), HttpStatus.NOT_ACCEPTABLE);
+        } else {
+            return new ResponseEntity<>("Email or Username is already taken.", HttpStatus.NOT_ACCEPTABLE);
         }
-        return new ResponseEntity<>("Email or User Name is already taken.", HttpStatus.NOT_ACCEPTABLE);
+
     }
 
     @GetMapping("/isUserNameAvail")
@@ -39,6 +43,12 @@ public class UserController {
     @GetMapping("/getUsers")
     private ResponseEntity<List<UserEntity>> getUsers() {
         return new ResponseEntity(userService.fetchAllUsers(), HttpStatus.OK);
+    }
+
+    @GetMapping("/login")
+    private ResponseEntity loginUser(@RequestBody LoginUserRequestDto loginUserRequestDto) {
+
+        return new ResponseEntity(userService.loginUser(loginUserRequestDto), HttpStatus.OK);
     }
 
 }

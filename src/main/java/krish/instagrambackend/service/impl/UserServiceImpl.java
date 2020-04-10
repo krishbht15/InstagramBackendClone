@@ -1,5 +1,7 @@
 package krish.instagrambackend.service.impl;
 
+import com.sun.xml.fastinfoset.stax.events.Util;
+import krish.instagrambackend.dto.LoginUserRequestDto;
 import krish.instagrambackend.dto.RegisterUserDto;
 import krish.instagrambackend.entities.UserEntity;
 import krish.instagrambackend.repository.UserRepository;
@@ -9,7 +11,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.swing.text.Utilities;
 import java.util.List;
+import java.util.UUID;
 
 @Service
 @Transactional
@@ -29,9 +33,9 @@ public class UserServiceImpl implements UserService {
             userEntity.setName(registerUserDto.getName());
             userEntity.setPassword(AesPassword.encrypt(registerUserDto.getPassword()));
             userEntity.setUserName(registerUserDto.getUserName());
-            try {
-                userRepository.save(userEntity);
-
+            try (UserEntity userEntity1 = userRepository.save(userEntity);
+            ) {
+                return userEntity1;
             } catch (Exception e) {
                 System.out.println("s,nlkfsnnsflnlo");
                 return null;
@@ -60,5 +64,18 @@ public class UserServiceImpl implements UserService {
     @Override
     public List<UserEntity> fetchAllUsers() {
         return userRepository.findAll();
+    }
+
+    @Override
+    public boolean loginUser(LoginUserRequestDto loginUserRequestDto) {
+        try (UserEntity userEntity = userRepository.findByUserNameOrEmail(loginUserRequestDto.getUserName(), loginUserRequestDto.getEmail())) {
+            if (loginUserRequestDto.getPassword().equals(AesPassword.decrypt(userEntity.getPassword()))) {
+                return true;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return false;
     }
 }
