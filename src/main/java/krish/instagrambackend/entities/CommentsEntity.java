@@ -11,7 +11,7 @@ import java.util.UUID;
 public class CommentsEntity extends BaseEntity {
 
     @ManyToOne
-    @Column(name = "user_id")
+    @JoinColumn(name = "user_id ")
     private UserEntity userId;
 
     @Column(name = "data")

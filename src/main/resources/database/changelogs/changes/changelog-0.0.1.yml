@@ -106,19 +106,15 @@ databaseChangeLog:
               - column:
                   name: bio
                   type: varchar(150)
-                  constraints:
-                    nullable: true
+
               - column:
                   name: photo_url
                   type: varchar(100)
-                  constraints:
-                    nullable: true
-                    unique: true
+
               - column:
                   name: gender
                   type: binary(16)
                   constraints:
-                    nullable: false
                     foreignKeyName: fk_gender_user
                     references: gender(uuid)
 
@@ -126,7 +122,6 @@ databaseChangeLog:
                   name: profile_status
                   type: binary(16)
                   constraints:
-                    nullable: false
                     foreignKeyName: fk_profile_status_user
                     references: profile_status(uuid)
   - changeSet:

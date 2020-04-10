@@ -2,10 +2,7 @@ package krish.instagrambackend.entities;
 
 import lombok.Data;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.util.UUID;
 
 @Data
@@ -31,11 +28,11 @@ public class UserEntity extends BaseEntity {
     @Column(name = "photo_url")
     private String photoUrl;
 
-    @Column(name = "gender")
+    @JoinColumn(name = "gender")
     @ManyToOne
     private GenderEntity gender;
 
-    @Column(name = "profile_status")
+    @JoinColumn(name = "profile_status")
     @ManyToOne
     private ProfileStatusEntity profileStatus;
 
