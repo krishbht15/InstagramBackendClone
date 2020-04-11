@@ -8,8 +8,12 @@ import java.util.List;
 
 public interface UserService {
     UserEntity saveUser(RegisterUserDto registerUserDto);
-    boolean isUserNameAvailable(String  username);
+
+    boolean isUserNameAvailable(String username);
+
     boolean isEmailAvailable(String email);
-    List<UserEntity> fetchAllUsers();
-    boolean loginUser(LoginUserRequestDto loginUserRequestDto);
+
+    List<UserEntity> fetchAllUsers(String token);
+
+    String loginUser(LoginUserRequestDto loginUserRequestDto);
 }

@@ -41,13 +41,13 @@ public class UserController {
     }
 
     @GetMapping("/getUsers")
-    private ResponseEntity<List<UserEntity>> getUsers() {
-        return new ResponseEntity(userService.fetchAllUsers(), HttpStatus.OK);
+    private ResponseEntity<List<UserEntity>> getUsers(@RequestHeader(name = "token") String header) {
+        return new ResponseEntity(userService.fetchAllUsers(header), HttpStatus.OK);
     }
 
     @GetMapping("/login")
     private ResponseEntity loginUser(@RequestBody LoginUserRequestDto loginUserRequestDto) {
-
+        System.out.println("loginnnnnnnnnnnnnnn");
         return new ResponseEntity(userService.loginUser(loginUserRequestDto), HttpStatus.OK);
     }
 

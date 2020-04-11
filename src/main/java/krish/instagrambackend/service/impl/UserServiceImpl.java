@@ -7,6 +7,7 @@ import krish.instagrambackend.entities.UserEntity;
 import krish.instagrambackend.repository.UserRepository;
 import krish.instagrambackend.service.UserService;
 import krish.instagrambackend.util.AesPassword;
+import krish.instagrambackend.util.JwtUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -19,6 +20,9 @@ import java.util.UUID;
 @Transactional
 public class UserServiceImpl implements UserService {
     UserRepository userRepository;
+
+    @Autowired
+    JwtUtil jwtUtil;
 
     @Autowired
     public UserServiceImpl(UserRepository userRepository) {
@@ -62,20 +66,23 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<UserEntity> fetchAllUsers() {
-        return userRepository.findAll();
+    public List<UserEntity> fetchAllUsers(String token) {
+        if (jwtUtil.validateToken(token, "krish15")) {
+            return userRepository.findAll();
+        }
+        return null;
     }
 
     @Override
-    public boolean loginUser(LoginUserRequestDto loginUserRequestDto) {
+    public String loginUser(LoginUserRequestDto loginUserRequestDto) {
         try (UserEntity userEntity = userRepository.findByUserNameOrEmail(loginUserRequestDto.getUserName(), loginUserRequestDto.getEmail())) {
             if (loginUserRequestDto.getPassword().equals(AesPassword.decrypt(userEntity.getPassword()))) {
-                return true;
+                return jwtUtil.generateToken(userEntity.getUserName());
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
 
-        return false;
+        return "false";
     }
 }
