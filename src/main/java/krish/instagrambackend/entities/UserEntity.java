@@ -3,6 +3,7 @@ package krish.instagrambackend.entities;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.util.List;
 import java.util.UUID;
 
 @Data
@@ -36,5 +37,12 @@ public class UserEntity extends BaseEntity {
     @ManyToOne
     private ProfileStatusEntity profileStatus;
 
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "from")
+    private List<FollowTransactionEntity> followers;
+
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "to")
+    private List<FollowTransactionEntity> following;
 
 }

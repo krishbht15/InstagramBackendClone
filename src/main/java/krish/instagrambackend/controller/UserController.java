@@ -5,11 +5,13 @@ import krish.instagrambackend.dto.RegisterUserDto;
 import krish.instagrambackend.entities.UserEntity;
 import krish.instagrambackend.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/user")
@@ -49,6 +51,11 @@ public class UserController {
     private ResponseEntity loginUser(@RequestBody LoginUserRequestDto loginUserRequestDto) {
         System.out.println("loginnnnnnnnnnnnnnn");
         return new ResponseEntity(userService.loginUser(loginUserRequestDto), HttpStatus.OK);
+    }
+
+    @PostMapping("/follow")
+    private ResponseEntity<?> followTransaction(@RequestHeader(name = "token") String token, @RequestHeader(name = "username") String username, @RequestParam(name = "from") String from, @RequestParam(name = "to") String to) {
+        return new ResponseEntity(userService.following(token, username, UUID.fromString(from), UUID.fromString(to)), HttpStatus.OK);
     }
 
 }

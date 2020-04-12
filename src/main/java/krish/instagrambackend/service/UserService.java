@@ -5,6 +5,7 @@ import krish.instagrambackend.dto.RegisterUserDto;
 import krish.instagrambackend.entities.UserEntity;
 
 import java.util.List;
+import java.util.UUID;
 
 public interface UserService {
     UserEntity saveUser(RegisterUserDto registerUserDto);
@@ -16,4 +17,6 @@ public interface UserService {
     List<UserEntity> fetchAllUsers(String token);
 
     String loginUser(LoginUserRequestDto loginUserRequestDto);
+
+    String following(String token, String userName,UUID from, UUID to);
 }

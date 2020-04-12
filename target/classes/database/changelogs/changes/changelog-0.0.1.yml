@@ -380,3 +380,52 @@ databaseChangeLog:
                     foreignKeyName: fk_post_comment
                     references: posts(uuid)
             tableName: comments
+
+  - changeSet:
+      id: 1586699345-1
+      author: krishbht15
+      preConditions:
+        - onFail: WARN
+        - not:
+            tableExists:
+              schemaName: instadb
+              tableName: follow_transaction
+      changes:
+        - createTable:
+            tableName: follow_transaction
+            columns:
+              - column:
+                  name: uuid
+                  type: binary(16)
+                  constraints:
+                    primaryKey: true
+                    primaryKeyName: pk_follow_transaction
+                    nullable: false
+              - column:
+                  name: from
+                  type: binary(16)
+                  constraints:
+                    foreignKeyName: fk_from_follow
+                    references: users(uuid)
+              - column:
+                  name: to
+                  type: binary(16)
+                  constraints:
+                    foreignKeyName: fk_to_follow
+                    references: users(uuid)
+
+  - changeSet:
+      id: 1586699345-2
+      author: krishbht15
+      changes:
+        - addColumn:
+            columns:
+              - column:
+                  name: created_at
+                  type: TIMESTAMP
+                  constraints:
+                    nullable: false
+              - column:
+                  name: updated_at
+                  type: TIMESTAMP
+            tableName: follow_transaction

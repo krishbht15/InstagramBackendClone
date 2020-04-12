@@ -3,7 +3,9 @@ package krish.instagrambackend.service.impl;
 import com.sun.xml.fastinfoset.stax.events.Util;
 import krish.instagrambackend.dto.LoginUserRequestDto;
 import krish.instagrambackend.dto.RegisterUserDto;
+import krish.instagrambackend.entities.FollowTransactionEntity;
 import krish.instagrambackend.entities.UserEntity;
+import krish.instagrambackend.repository.FollowRepository;
 import krish.instagrambackend.repository.UserRepository;
 import krish.instagrambackend.service.UserService;
 import krish.instagrambackend.util.AesPassword;
@@ -23,6 +25,9 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     JwtUtil jwtUtil;
+
+    @Autowired
+    FollowRepository followRepository;
 
     @Autowired
     public UserServiceImpl(UserRepository userRepository) {
@@ -85,4 +90,22 @@ public class UserServiceImpl implements UserService {
 
         return "false";
     }
+
+    @Override
+    public String following(String token, String userName, UUID from, UUID to) {
+        if (jwtUtil.validateToken(token, userName)) {
+            System.out.println("valid token");
+            FollowTransactionEntity followTransactionEntity = new FollowTransactionEntity();
+            followTransactionEntity.setFrom(from);
+            followTransactionEntity.setTo(to);
+            System.out.println("entity is ready");
+            followRepository.save(followTransactionEntity);
+
+            return "Following transaction completed successful!";
+        }
+        System.out.println("invalid token");
+
+        return "Transaction got failed";
+    }
+
 }
