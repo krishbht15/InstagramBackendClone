@@ -402,13 +402,13 @@ databaseChangeLog:
                     primaryKeyName: pk_follow_transaction
                     nullable: false
               - column:
-                  name: from
+                  name: from_user
                   type: binary(16)
                   constraints:
-                    foreignKeyName: fk_from_follow
+                    foreignKeyName: fk_from_follow  
                     references: users(uuid)
               - column:
-                  name: to
+                  name: to_user
                   type: binary(16)
                   constraints:
                     foreignKeyName: fk_to_follow

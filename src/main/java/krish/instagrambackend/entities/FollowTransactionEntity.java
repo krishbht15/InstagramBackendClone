@@ -10,10 +10,10 @@ import java.util.UUID;
 @Table(name = "follow_transaction")
 public class FollowTransactionEntity extends BaseEntity {
 
-    @Column(name = "from")
-    private UUID from;
+  @Column(name = "from_user")
+  private UUID from;
 
-    @Column(name = "to")
-    private UUID to;
+  @Column(name = "to_user")
+  private UUID to;
 
 }

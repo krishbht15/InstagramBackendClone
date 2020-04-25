@@ -14,7 +14,7 @@ import java.util.UUID;
 
 @MappedSuperclass
 @Data
-public class BaseEntity implements AutoCloseable {
+public class BaseEntity implements AutoCloseable   {
 
   @Id
   @GeneratedValue(generator = "uuid2")
@@ -29,6 +29,7 @@ public class BaseEntity implements AutoCloseable {
   @Column(name = "updated_at")
   @UpdateTimestamp
   private Timestamp updatedAt;
+
 
   @Override
   public void close() throws Exception {
