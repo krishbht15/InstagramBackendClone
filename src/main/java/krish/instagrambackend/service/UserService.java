@@ -18,5 +18,5 @@ public interface UserService {
 
     String loginUser(LoginUserRequestDto loginUserRequestDto);
 
-    String following(String token, String userName,UUID from, UUID to);
+//    String following(String token, String userName,UUID from, UUID to);
 }

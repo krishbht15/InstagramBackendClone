@@ -53,9 +53,6 @@ public class UserController {
         return new ResponseEntity(userService.loginUser(loginUserRequestDto), HttpStatus.OK);
     }
 
-    @PostMapping("/follow")
-    private ResponseEntity<?> followTransaction(@RequestHeader(name = "token") String token, @RequestHeader(name = "username") String username, @RequestParam(name = "from") UUID from, @RequestParam(name = "to") UUID to) {
-        return new ResponseEntity(userService.following(token, username, from, to), HttpStatus.OK);
-    }
+
 
 }
