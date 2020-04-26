@@ -40,11 +40,11 @@ public class UserEntity extends BaseEntity {
   @ManyToOne
   private ProfileStatusEntity profileStatus;
 
-  @OneToMany(cascade = CascadeType.ALL)
+  @OneToMany(cascade = CascadeType.DETACH)
   @JoinColumn(name = "to_user")
   private List<FollowTransactionEntity> followers;
 
-  @OneToMany(cascade = CascadeType.ALL)
+  @OneToMany(cascade = CascadeType.DETACH)
   @JoinColumn(name = "from_user")
   private List<FollowTransactionEntity> following;
 

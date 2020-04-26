@@ -16,6 +16,7 @@ import krish.instagrambackend.util.JwtUtil;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class FollowServiceImpl implements FollowService {
@@ -69,6 +70,7 @@ public class FollowServiceImpl implements FollowService {
     return getFollowersUsers(userEntity);
   }
 
+
   private List<UserDto> getFollowingUsers(UserEntity userEntity) throws Exception {
     List<UserDto> result = new ArrayList<>();
     System.out.println("following");
@@ -105,5 +107,24 @@ public class FollowServiceImpl implements FollowService {
       }
     }
     return result;
+  }
+
+  @Override
+  @Transactional
+  public String unfollow(String token, String userName, UUID from, UUID to) {
+    if (jwtUtil.validateToken(token, userName)) {
+      String id = AesPassword.encrypt(from.toString() + to.toString());
+      System.out.println(id
+      );
+      FollowTransactionEntity followTransactionEntity = followRepository
+          .getFollowTransactionEntityByTransactionId(
+              id);
+      System.out.println(followTransactionEntity);
+
+            followRepository.deleteFollowTransactionEntityransactionEntityByFromAndTo(from, to);
+
+      return "Unfollow transaction successfully ";
+    }
+    return "Unfollow transaction unsuccessfully ";
   }
 }

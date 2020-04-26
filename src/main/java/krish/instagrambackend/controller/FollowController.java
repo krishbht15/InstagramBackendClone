@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.RequestEntity;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestHeader;
@@ -41,5 +42,19 @@ public class FollowController {
       @RequestHeader(name = "username") String username, @RequestParam(name = "uuid") UUID uuid)
       throws Exception {
     return new ResponseEntity(followService.getFollowers(uuid), HttpStatus.OK);
+  }
+
+  @DeleteMapping("unfollow")
+  private ResponseEntity<?> unfollow(
+      @RequestHeader(name = "token")
+          String token,
+      @RequestHeader(name = "username")
+          String username,
+      @RequestParam(name = "from")
+          UUID from,
+      @RequestParam(name = "to")
+          UUID to) {
+
+    return new ResponseEntity(followService.unfollow(token, username, from, to), HttpStatus.OK);
   }
 }
