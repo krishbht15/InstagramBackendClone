@@ -4,6 +4,8 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
+import krish.instagrambackend.dto.FollowTransactionDto;
+import krish.instagrambackend.dto.UserDto;
 import krish.instagrambackend.entities.FollowTransactionEntity;
 import krish.instagrambackend.entities.UserEntity;
 import krish.instagrambackend.repository.FollowRepository;
@@ -11,6 +13,7 @@ import krish.instagrambackend.repository.UserRepository;
 import krish.instagrambackend.service.FollowService;
 import krish.instagrambackend.util.AesPassword;
 import krish.instagrambackend.util.JwtUtil;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -53,21 +56,21 @@ public class FollowServiceImpl implements FollowService {
   }
 
   @Override
-  public List<UserEntity> getFollowing(UUID uuid) throws Exception {
+  public List<UserDto> getFollowing(UUID uuid) throws Exception {
     UserEntity userEntity = userRepository.getOne(uuid);
 
     return getFollowingUsers(userEntity);
   }
 
   @Override
-  public List<UserEntity> getFollowers(UUID uuid) throws Exception {
+  public List<UserDto> getFollowers(UUID uuid) throws Exception {
     UserEntity userEntity = userRepository.getOne(uuid);
 
     return getFollowersUsers(userEntity);
   }
 
-  private List<UserEntity> getFollowingUsers(UserEntity userEntity) throws Exception {
-    List<UserEntity> result = new ArrayList<>();
+  private List<UserDto> getFollowingUsers(UserEntity userEntity) throws Exception {
+    List<UserDto> result = new ArrayList<>();
     System.out.println("following");
     for (FollowTransactionEntity followTransactionEntity : userEntity.getFollowing()
     ) {
@@ -75,16 +78,18 @@ public class FollowServiceImpl implements FollowService {
       if (followTransactionEntity.getFrom().equals(userEntity.getUuid())) {
         System.out.println("in try");
         try (UserEntity userEntity1 = userRepository.getOne(followTransactionEntity.getTo())) {
-          System.out.println("tried");
-          result.add(userEntity1);
+          UserDto userDto = new UserDto();
+          FollowTransactionDto followTransactionDto = new FollowTransactionDto();
+          BeanUtils.copyProperties(userEntity1, userDto);
+          result.add(userDto);
         }
       }
     }
     return result;
   }
 
-  private List<UserEntity> getFollowersUsers(UserEntity userEntity) throws Exception {
-    List<UserEntity> result = new ArrayList<>();
+  private List<UserDto> getFollowersUsers(UserEntity userEntity) throws Exception {
+    List<UserDto> result = new ArrayList<>();
     System.out.println("followers");
     for (FollowTransactionEntity followTransactionEntity : userEntity.getFollowers()
     ) {
@@ -93,7 +98,9 @@ public class FollowServiceImpl implements FollowService {
         System.out.println("in try");
         try (UserEntity userEntity1 = userRepository.getOne(followTransactionEntity.getFrom())) {
           System.out.println("tried");
-          result.add(userEntity1);
+          UserDto userDto = new UserDto();
+          BeanUtils.copyProperties(userEntity1, userDto);
+          result.add(userDto);
         }
       }
     }
