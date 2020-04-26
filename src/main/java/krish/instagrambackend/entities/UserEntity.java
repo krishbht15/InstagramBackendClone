@@ -5,6 +5,7 @@ import lombok.Data;
 import javax.persistence.*;
 import java.util.List;
 import java.util.UUID;
+import org.hibernate.validator.constraints.UniqueElements;
 
 @Data
 @Entity
@@ -38,11 +39,11 @@ public class UserEntity extends BaseEntity {
     private ProfileStatusEntity profileStatus;
 
     @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = "from")
+    @JoinColumn(name = "from_user")
     private List<FollowTransactionEntity> followers;
 
     @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = "to")
+    @JoinColumn(name = "to_user")
     private List<FollowTransactionEntity> following;
 
 }

@@ -1,6 +1,8 @@
 package krish.instagrambackend.service.impl;
 
 import com.sun.xml.fastinfoset.stax.events.Util;
+import java.sql.SQLException;
+import java.sql.SQLIntegrityConstraintViolationException;
 import krish.instagrambackend.dto.LoginUserRequestDto;
 import krish.instagrambackend.dto.RegisterUserDto;
 import krish.instagrambackend.entities.FollowTransactionEntity;
@@ -102,14 +104,19 @@ public class UserServiceImpl implements UserService {
       FollowTransactionEntity followTransactionEntity = new FollowTransactionEntity();
       followTransactionEntity.setFrom(from);
       followTransactionEntity.setTo(to);
-            followTransactionEntity.setCreatedAt(new Timestamp(System.currentTimeMillis()));
-            followTransactionEntity.setUpdatedAt(new Timestamp(System.currentTimeMillis()));
+      followTransactionEntity.setCreatedAt(new Timestamp(System.currentTimeMillis()));
+      followTransactionEntity.setUpdatedAt(new Timestamp(System.currentTimeMillis()));
       System.out.println("entity is ready " + followTransactionEntity);
-
-            System.out.println(followTransactionEntity.getCreatedAt().toString() + followTransactionEntity.getUpdatedAt().toString());
+      followTransactionEntity
+          .setTransactionId(AesPassword.encrypt(from.toString() + to.toString()));
+      System.out.println(
+          followTransactionEntity.getCreatedAt().toString() + followTransactionEntity
+              .getUpdatedAt()
+              .toString());
       followRepository.save(followTransactionEntity);
 
       return "Following transaction completed successful!";
+
     }
     System.out.println("invalid token");
 

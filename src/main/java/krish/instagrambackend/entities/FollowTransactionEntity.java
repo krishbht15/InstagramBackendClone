@@ -16,4 +16,7 @@ public class FollowTransactionEntity extends BaseEntity {
   @Column(name = "to_user")
   private UUID to;
 
+  @Column(name = "transaction_id")
+  private String transactionId;
+
 }

@@ -413,6 +413,12 @@ databaseChangeLog:
                   constraints:
                     foreignKeyName: fk_to_follow
                     references: users(uuid)
+              - column:
+                  name: transaction_id
+                  type: varchar(255)
+                  constraints:
+                    unique: true
+                    nullable: false
 
   - changeSet:
       id: 1586699345-2
