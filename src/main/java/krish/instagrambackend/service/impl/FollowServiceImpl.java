@@ -120,9 +120,7 @@ public class FollowServiceImpl implements FollowService {
           .getFollowTransactionEntityByTransactionId(
               id);
       System.out.println(followTransactionEntity);
-
-            followRepository.deleteFollowTransactionEntityransactionEntityByFromAndTo(from, to);
-
+      followRepository.deleteFollowTransactionEntityransactionEntityByFromAndTo(from, to);
       return "Unfollow transaction successfully ";
     }
     return "Unfollow transaction unsuccessfully ";

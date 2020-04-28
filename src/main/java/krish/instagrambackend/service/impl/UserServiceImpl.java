@@ -97,30 +97,5 @@ public class UserServiceImpl implements UserService {
     return "false";
   }
 
-//  @Override
-//  public String following(String token, String userName, UUID from, UUID to) {
-//    if (jwtUtil.validateToken(token, userName)) {
-//      System.out.println("valid token");
-//      FollowTransactionEntity followTransactionEntity = new FollowTransactionEntity();
-//      followTransactionEntity.setFrom(from);
-//      followTransactionEntity.setTo(to);
-//      followTransactionEntity.setCreatedAt(new Timestamp(System.currentTimeMillis()));
-//      followTransactionEntity.setUpdatedAt(new Timestamp(System.currentTimeMillis()));
-//      System.out.println("entity is ready " + followTransactionEntity);
-//      followTransactionEntity
-//          .setTransactionId(AesPassword.encrypt(from.toString() + to.toString()));
-//      System.out.println(
-//          followTransactionEntity.getCreatedAt().toString() + followTransactionEntity
-//              .getUpdatedAt()
-//              .toString());
-//      followRepository.save(followTransactionEntity);
-//
-//      return "Following transaction completed successful!";
-//
-//    }
-//    System.out.println("invalid token");
-//
-//    return "Transaction got failed";
-//  }
 
 }

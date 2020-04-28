@@ -6,6 +6,7 @@ import krish.instagrambackend.entities.UserEntity;
 
 import java.util.List;
 import java.util.UUID;
+import org.springframework.http.ResponseEntity;
 
 public interface UserService {
     UserEntity saveUser(RegisterUserDto registerUserDto);
@@ -18,5 +19,7 @@ public interface UserService {
 
     String loginUser(LoginUserRequestDto loginUserRequestDto);
 
-//    String following(String token, String userName,UUID from, UUID to);
+
+
+    ResponseEntity<?> editProfile();
 }
