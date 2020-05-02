@@ -10,13 +10,16 @@ import java.util.UUID;
 @Entity
 public class PostEntity extends BaseEntity {
 
-    @Column(name = "description")
-    private String description;
+  @Column(name = "description")
+  private String description;
 
-    @ManyToOne
-    @JoinColumn(name = "status")
-    private PostStatusEntity status;
+  @ManyToOne
+  @JoinColumn(name = "status")
+  private PostStatusEntity status;
 
-    @Column(name = "user_id")
-    private UUID userId;
+  @Column(name = "user_id")
+  private UUID userId;
+
+  @Column(name = "image_url")
+  private String imageUrl;
 }

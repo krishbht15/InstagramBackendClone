@@ -435,3 +435,19 @@ databaseChangeLog:
                   name: updated_at
                   type: TIMESTAMP
             tableName: follow_transaction
+
+  - changeSet:
+      id: 1588455224
+      author: krishbht15
+      changes:
+        - addColumn:
+            columns:
+              - column:
+                  name: image_url
+                  type: varchar(500)
+                  constraints:
+                    nullable: false
+            tableName: posts
+
+
+

@@ -1,25 +1,21 @@
 package krish.instagrambackend.service;
 
+import java.util.List;
 import krish.instagrambackend.dto.LoginUserRequestDto;
 import krish.instagrambackend.dto.RegisterUserDto;
 import krish.instagrambackend.entities.UserEntity;
-
-import java.util.List;
-import java.util.UUID;
 import org.springframework.http.ResponseEntity;
 
 public interface UserService {
-    UserEntity saveUser(RegisterUserDto registerUserDto);
 
-    boolean isUserNameAvailable(String username);
+  UserEntity saveUser(RegisterUserDto registerUserDto);
 
-    boolean isEmailAvailable(String email);
+  boolean isUserNameAvailable(String username);
 
-    List<UserEntity> fetchAllUsers(String token);
+  boolean isEmailAvailable(String email);
 
-    String loginUser(LoginUserRequestDto loginUserRequestDto);
+  List<UserEntity> fetchAllUsers(String token);
 
+  String loginUser(LoginUserRequestDto loginUserRequestDto);
 
-
-    ResponseEntity<?> editProfile();
 }

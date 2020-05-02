@@ -48,4 +48,9 @@ public class UserEntity extends BaseEntity {
   @JoinColumn(name = "from_user")
   private List<FollowTransactionEntity> following;
 
+  @OneToMany(cascade = CascadeType.ALL)
+  @JoinColumn(name = "user_id")
+  private List<PostEntity> allPosts;
+
+
 }
