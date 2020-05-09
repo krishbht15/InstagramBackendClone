@@ -1,11 +1,9 @@
 package krish.instagrambackend.service.impl;
 
-import com.sun.xml.fastinfoset.stax.events.Util;
-import java.sql.SQLException;
-import java.sql.SQLIntegrityConstraintViolationException;
+import java.util.List;
+import java.util.UUID;
 import krish.instagrambackend.dto.LoginUserRequestDto;
 import krish.instagrambackend.dto.RegisterUserDto;
-import krish.instagrambackend.entities.FollowTransactionEntity;
 import krish.instagrambackend.entities.UserEntity;
 import krish.instagrambackend.repository.FollowRepository;
 import krish.instagrambackend.repository.UserRepository;
@@ -15,11 +13,6 @@ import krish.instagrambackend.util.JwtUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import javax.swing.text.Utilities;
-import java.sql.Timestamp;
-import java.util.List;
-import java.util.UUID;
 
 @Service
 @Transactional
@@ -95,6 +88,11 @@ public class UserServiceImpl implements UserService {
     }
 
     return "false";
+  }
+
+  @Override
+  public UserEntity getUser(UUID uuid) {
+    return userRepository.getOne(uuid);
   }
 
 

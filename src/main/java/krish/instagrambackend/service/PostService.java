@@ -12,4 +12,6 @@ public interface PostService {
       String description, Integer refId);
 
   List<PostEntity> getPosts(String token, String username, UUID uuid);
+
+  boolean likePost(String token, String username, UUID userid,UUID post);
 }

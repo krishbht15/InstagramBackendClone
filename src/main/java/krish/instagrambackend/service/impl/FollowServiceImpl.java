@@ -114,8 +114,7 @@ public class FollowServiceImpl implements FollowService {
   public String unfollow(String token, String userName, UUID from, UUID to) {
     if (jwtUtil.validateToken(token, userName)) {
       String id = AesPassword.encrypt(from.toString() + to.toString());
-      System.out.println(id
-      );
+      System.out.println(id);
       FollowTransactionEntity followTransactionEntity = followRepository
           .getFollowTransactionEntityByTransactionId(
               id);

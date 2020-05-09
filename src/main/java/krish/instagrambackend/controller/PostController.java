@@ -44,4 +44,14 @@ public class PostController {
       @RequestParam("userid") UUID uuid) {
     return new ResponseEntity(postService.getPosts(token, username, uuid), HttpStatus.OK);
   }
+
+
+  @PostMapping("like")
+  private ResponseEntity<?> likePost(@RequestHeader(name = "token")
+      String token,
+      @RequestHeader(name = "username")
+          String username, @RequestParam(name = "userid") UUID userid,
+      @RequestParam(name = "postid") UUID postid){
+    return new ResponseEntity(postService.likePost(token,username,userid,postid),HttpStatus.OK);
+  }
 }

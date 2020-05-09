@@ -1,10 +1,10 @@
 package krish.instagrambackend.service;
 
 import java.util.List;
+import java.util.UUID;
 import krish.instagrambackend.dto.LoginUserRequestDto;
 import krish.instagrambackend.dto.RegisterUserDto;
 import krish.instagrambackend.entities.UserEntity;
-import org.springframework.http.ResponseEntity;
 
 public interface UserService {
 
@@ -17,5 +17,7 @@ public interface UserService {
   List<UserEntity> fetchAllUsers(String token);
 
   String loginUser(LoginUserRequestDto loginUserRequestDto);
+
+  UserEntity getUser(UUID uuid);
 
 }

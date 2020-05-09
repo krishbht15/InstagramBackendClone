@@ -449,5 +449,20 @@ databaseChangeLog:
                     nullable: false
             tableName: posts
 
+  - changeSet:
+      id: 1588499289
+      author: krishbht15
+      changes:
+        - addColumn:
+            columns:
+              - column:
+                  name: like_user
+                  type: binary(16)
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_like_user
+                    references: users(uuid)
+            tableName: likes
+
 
 
